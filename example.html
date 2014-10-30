@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emitter example</title>
+    <style>
+        body {
+            background-color: #222;
+        }
+
+        .smoke-machine {
+            position: absolute;
+        }
+
+        #smoke-machine-1 {
+            bottom: 0;
+            left: 50%;
+            width: 50px;
+            height: 20px;
+            background-color: #000;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="smoke-machine-1" class="smoke-machine"></div>
+    <script src="emitter-container.js"></script>
+    <script>
+        var element = document.querySelector('#smoke-machine-1');
+        var emitter = new Emitter(element);
+
+        // var emitter2 = new Emitter({
+        //     positionX: 0,
+        //     positionY: 400
+        // });
+    </script>
+</body>
+</html>
