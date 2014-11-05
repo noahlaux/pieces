@@ -54,6 +54,7 @@ You can also provide additional options for your emitter by passing in some opti
     });
 </script>
 ```
+---
 
 ## Emitter
 An emitters job is to spawn particles. This is useful to create illusions of fx smoke, fire, water, stars etc.
@@ -89,6 +90,7 @@ var smokeHurricane = new pieces.Emitter({
     }
 });
 ```
+---
 
 ### Emitter options
 ```js
@@ -226,6 +228,8 @@ var defaults = {
     particleName: 'standard'
 };
 ```
+
+---
 
 # Building pieces.js from sources
 
