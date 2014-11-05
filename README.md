@@ -11,7 +11,7 @@ Check `example.html` in root folder for a demontration.
 The easiest way to use `pieces.js` in your code is by using the built source at `dist/pieces.min.js`. These built JavaScript files bundle all the necessary dependencies to run pieces.js.
 
 In your `head` tag, include the following code:
-```
+```html
 <script type="text/javascript" src="pieces.min.js"></script>
 ```
 
