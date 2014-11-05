@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emitter example</title>
+    <style>
+        body {
+            background: url(http://p1.pichost.me/i/58/1821109.jpg) no-repeat center center fixed;
+        }
+
+        .smoke-machine {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #111;
+            border: 1px solid #444;
+            pointer: move;
+        }
+
+    </style>
+
+</head>
+<body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+    <script src="http://draggabilly.desandro.com/draggabilly.pkgd.min.js"></script>
+    <script src="https://raw.githubusercontent.com/noahlaux/pieces.js/master/dist/pieces.min.js"></script>
+    <script>
+
+        var emitters = [];
+
+        for (var x = 1; x < 6; x++) {
+
+            var element = createElement();
+
+            element.style.zIndex = x;
+            element.style.left = (x * 220) + 'px';
+            element.style.top = document.body.scrollHeight / 2 + 'px';
+            colors = [getRandom(0, 255), getRandom(0, 255), getRandom(0, 255)];
+
+            element.style.backgroundColor = 'rgb(' + colors.join(',') + ')';
+
+            var emitterElement = new pieces.EmitterElement(element, {
+                spawnInterval: 50,
+                maxLifeTime: 3000,
+                filters: {
+                    colorize: {
+                        colors: colors,
+                        strength: 0.5
+                    }
+                },
+                velocityX: getRandom(5, 2),
+                velocityY: x % 2 ? -2 : 2
+            });
+
+            new Draggabilly( element );
+
+            element.addEventListener('click', function () {
+                setupEmitter(emitterElement.emitter);
+            });
+
+            emitters.push(emitterElement);
+        }
+
+        var element = createElement();
+
+        element.style.left = '0px';
+        element.style.zIndex = 11;
+
+        var topEmitter = new pieces.EmitterElement(element, {
+            // zIndex: 10,
+            spawnInterval: 30,
+            maxLifeTime: 4000,
+            growFactor: 0.3,
+            endSize: 50,
+            velocityX: 10,
+            velocityY: 3
+        });
+
+        emitters.push(topEmitter);
+
+        var boxWidth = element.style.width,
+            viewWidth = document.body.scrollWidth - boxWidth,
+            moveBy = 3,
+            delta = 2;
+
+        element.style.top = '10px';
+
+        setupEmitter(topEmitter.emitter);
+
+        update();
+
+        function update() {
+            var left = parseInt(element.style.left);
+
+            if (left >= parseInt(viewWidth - boxWidth)){
+                delta = -moveBy;
+            }
+
+            if (left <= 0) {
+                delta = moveBy;
+            }
+            element.style.left = left + delta + 'px';
+            requestAnimationFrame(update);
+        }
+
+
+        function createElement() {
+            var element = document.createElement('div');
+            element.classList.add('smoke-machine');
+            document.body.appendChild(element);
+            return element;
+        }
+
+        function getRandom(from, to) {
+            return Math.round(Math.random() * to + from);
+        }
+
+        function setupEmitter (emitter) {
+            settingsScope = emitter.settings;
+
+            var gui = new dat.GUI();
+
+            var f1 = gui.addFolder('Emitter');
+            f1.add(settingsScope, 'spawnInterval');
+            f1.add(settingsScope, 'paused');
+
+            var f2 = gui.addFolder('Particle');
+            f2.add(settingsScope, 'maxLifeTime', 0, 10000);
+            f2.add(settingsScope, 'startSize', -10, 100);
+            f2.add(settingsScope, 'endSize', -10, 100);
+            f2.add(settingsScope, 'growFactor', 0, 1);
+            f2.add(settingsScope, 'rotationSpeed', 0, 10);
+            f2.add(settingsScope, 'velocityX', -10, 10);
+            f2.add(settingsScope, 'velocityXRandomFactor', 0, 10);
+            f2.add(settingsScope, 'velocityY', -10, 10);
+            f2.add(settingsScope, 'velocityYRandomFactor', 0, 10);
+
+            f2.open();
+        }
+
+    </script>
+</body>
+</html>
