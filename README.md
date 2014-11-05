@@ -9,6 +9,9 @@ Check `example.html` in root folder for a demontration.
 
 ---
 
+## Installing with BOWER
+`bower install pieces --save`
+
 ## Packaged Builds
 The easiest way to use `pieces.js` in your code is by using the built source at `dist/pieces.min.js`. These built JavaScript files bundle all the necessary dependencies to run pieces.js.
 
