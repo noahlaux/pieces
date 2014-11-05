@@ -233,14 +233,16 @@ If you prefer to build the library yourself:
 
 Clone the repo from GitHub
 
+```
 git clone git@github.com:noahlaux/pieces.js.git
 cd pieces
+```
+
 Acquire build dependencies. Make sure you have Node.js installed on your workstation. This is only needed to build pieces.js from sources. pieces.js itself has no dependency on Node.js once it is built (it works with any server technology or none). Now run:
-
-`npm install -g gulp`
-
-and
-`npm install`
+```
+npm install -g gulp
+npm install
+```
 
 The first npm command sets up the popular gylp build tool. You might need to run this command with sudo if you're on Linux or Mac OS X, or in an Administrator command prompt on Windows. The second npm command fetches the remaining build dependencies.
 
