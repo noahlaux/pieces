@@ -1,0 +1,33 @@
+{
+  "name": "pieces",
+  "version": "0.0.2",
+  "homepage": "https://github.com/noahlaux/pieces",
+  "authors": [
+    "Noah Laux <noahlaux@gmail.com>"
+  ],
+  "description": "Small modular emitter library",
+  "main": "dist/pieces.min.js",
+  "keywords": [
+    "emitter",
+    "smoke",
+    "framework"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.2",
+    "commit": "8d4bbc05208d2284032d3b850851b5da727de462"
+  },
+  "_source": "git://github.com/noahlaux/pieces.git",
+  "_target": "~0.0.2",
+  "_originalSource": "pieces",
+  "_direct": true
+}
