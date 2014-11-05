@@ -15,18 +15,17 @@ gulp.task('clean', function () {
 });
 
 gulp.task('concat', function() {
-  return gulp.src(config.srcFiles)
+    gulp.src(config.srcFiles)
             .pipe(concat('pieces.js'))
             .pipe(gulp.dest(config.dist));
 });
 
 gulp.task('minify', function() {
-    return gulp.src(config.dist + '*.js')
-            .pipe(uglify())
+    gulp.src(config.dist + '*.js')
             .pipe(rename('pieces.min.js'))
+            .pipe(uglify())
             .pipe(gulp.dest(config.dist));
 });
-
 
 gulp.task('build', ['concat', 'minify']);
 

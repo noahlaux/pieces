@@ -234,27 +234,106 @@
             paused: false,
 
             /**
+             * Max life time for particle to live (in ms)
+             * @type {Number}
+             */
+            maxLifeTime: 5000,
+
+            /**
+             * Current size of particle
+             * @type {Number}
+             */
+            size: 0,
+
+            /**
+             * Initial and current life time of particle
+             * @type {Number}
+             */
+            lifeTime: 0,
+
+            /**
+             * Start size of particle
+             * @type {Number}
+             */
+            startSize: 30,
+
+            /**
+             * End size of particle
+             * @type {Number}
+             */
+            endSize: 70,
+
+            /**
+             * Grow factor for particle
+             * @type {Number}
+             */
+            growFactor: 0.1,
+
+            /**
+             * Current horizontal position for particle
+             * @type {Number}
+             */
+            positionX: 0,
+
+            /**
+             * Current vertical position for particle
+             * @type {Number}
+             */
+            positionY: 0,
+
+            /**
+             * Current horizontal particle velocity
+             * @type {Number}
+             */
+            velocityX: 1,
+
+            /**
+             * Adds randomness to horizontal particle velocity
+             * @type {Number}
+             */
+            velocityXRandomFactor: 0.5,
+
+            /**
+             * Current vertical velocity
+             * @type {Number}
+             */
+            velocityY: 1,
+
+            /**
+             * Adds randomness to vertical particle velocity
+             * @type {Number}
+             */
+            velocityYRandomFactor: 3,
+
+            /**
+             * Rotation span for particle
+             * @type {Number}
+             */
+            rotationAngleSpan: 180,
+
+            /**
+             * Rotation speed of particle
+             * @type {Number}
+             */
+            rotationSpeed: 0.2,
+
+            /**
+             * Start opacity of the particle
+             * @type {Number}
+             */
+            startOpacity: 1,
+
+            /**
+             * Decline speed for opacity
+             * @type {Number}
+             */
+            opacityDeclineSpeed: 0.01,
+
+            /**
              * Filters to apply to asset
              * @type {Object}
              */
             filters: {},
-
-            maxLifeTime: 5000,
-            size: 0,
-            lifeTime: 0,
-            startSize: 30,
-            endSize: 70,
-            growFactor: 0.1,
-            positionX: 0,
-            positionY: 0,
-            velocityX: 1,
-            velocityXRandomFactor: 0.5,
-            velocityY: 1,
-            velocityYRandomFactor: 3,
-            rotationAngleSpan: 180,
-            rotationSpeed: 0.2,
-            startOpacity: 1,
-            opacityDeclineSpeed: 0.01,
 
             /**
              * Image to use for asset
