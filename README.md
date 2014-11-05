@@ -45,14 +45,13 @@ You can also provide additional options for your emitter by passing in some opti
     // Reference to element
     var element = document.getElementById('smokeMachine');
 
-    // create emitter element with default settings
+    // create emitter element with options
     var emitterElement = new pieces.EmitterElement(element, {
         endSize: 100,
         velocityX: 4
     });
 </script>
 ```
-
 
 ## Emitter
 An emitters job is to spawn particles. This is useful to create illusions of fx smoke, fire, water, stars etc.
@@ -70,6 +69,22 @@ var smokeHurricane = new pieces.Emitter({
     rotationSpeed: 5,
     spawnInterval: 20,
     growFactor: 0.3
+});
+```
+
+If you want to go completely crazy there's also filters (`desaturate`, `colorize`, `tint`) that you can color your particle asset. You use them like this:
+```js
+// Green dense smoke
+var smokeHurricane = new pieces.Emitter({
+    growFactor: 5
+    filters: {
+        colorize: {
+            // RGB colors
+            colors: [0, 255, 0]
+            // opacity of filter
+            strength: 1
+        }
+    }
 });
 ```
 
