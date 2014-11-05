@@ -37,9 +37,16 @@
 <h2>
 <a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
 
-<p>Check <code>example.html</code> in root folder for a demontration.</p>
+<p><a href="http://noahlaux.github.io/pieces/example-1.html">Example 1</a></p>
+
+<p>Check <code>example.html</code> in root folder for a demonstration.</p>
 
 <hr>
+
+<h2>
+<a id="installing-with-bower" class="anchor" href="#installing-with-bower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installing with BOWER</h2>
+
+<p><code>bower install pieces --save</code></p>
 
 <h2>
 <a id="packaged-builds" class="anchor" href="#packaged-builds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packaged Builds</h2>
@@ -89,6 +96,8 @@
 <span class="nt">&lt;/script&gt;</span>
 </pre></div>
 
+<hr>
+
 <h2>
 <a id="emitter" class="anchor" href="#emitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Emitter</h2>
 
@@ -99,9 +108,9 @@
 <div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">Emitter</span><span class="p">();</span>
 </pre></div>
 
-<p>This creates an emitter that imidiatly starts emitting smoke in the top left corner of your screen. The emitter has some sensible default settings and have an base64 smoke asset embedded.</p>
+<p>This creates an emitter that immediately starts emitting smoke in the top left corner of your screen. The emitter has some sensible default settings and have an base64 smoke asset embedded.</p>
 
-<p>There's quite a few options to control the appearence of your emitter. Let's make a smoke hurricane for the fun of it:</p>
+<p>There's quite a few options to control the appearance of your emitter. Let's make a smoke hurricane for the fun of it:</p>
 
 <div class="highlight highlight-js"><pre><span class="c1">// smoke hurricane</span>
 <span class="kd">var</span> <span class="nx">smokeHurricane</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">Emitter</span><span class="p">({</span>
@@ -126,6 +135,8 @@
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
+
+<hr>
 
 <h3>
 <a id="emitter-options" class="anchor" href="#emitter-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Emitter options</h3>
@@ -265,6 +276,8 @@
 <span class="p">};</span>
 </pre></div>
 
+<hr>
+
 <h1>
 <a id="building-piecesjs-from-sources" class="anchor" href="#building-piecesjs-from-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building pieces.js from sources</h1>
 
@@ -273,7 +286,7 @@
 <p>Clone the repo from GitHub</p>
 
 <pre><code>git clone git@github.com:noahlaux/pieces.js.git
-cd pieces
+cd pieces.js
 </code></pre>
 
 <p>Acquire build dependencies. Make sure you have Node.js installed on your workstation. This is only needed to build pieces.js from sources. pieces.js itself has no dependency on Node.js once it is built (it works with any server technology or none). Now run:</p>
