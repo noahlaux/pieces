@@ -478,6 +478,87 @@
 })(window.pieces || {});
 
 (function (namespace) {
+    namespace.filterFactory.register('colorize', function (buffer, options) {
+
+        var width = buffer.width;
+        var height = buffer.height;
+
+        var fill = options.colors.concat(options.strength || 1);
+
+        var render = this.getImageBuffer(width, height);
+        var ctx = render.getContext('2d');
+
+        ctx.fillStyle = 'rgba(' + fill.join(',') + ')';
+        ctx.fillRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'destination-atop';
+        ctx.drawImage(buffer, 0, 0);
+
+        return render;
+    });
+})(window.pieces || {});
+
+(function (namespace) {
+    namespace.filterFactory.register('desaturate', function (buffer, options) {
+
+        var context = buffer.getContext('2d'),
+            imageData = context.getImageData(0, 0, buffer.width, buffer.height),
+            data = imageData.data,
+            len = imageData.width * imageData.height * 4,
+            index = 0,
+            average;
+
+        while (index < len) {
+            average = (data[index] + data[index + 1] + data[index + 2]) / 3;
+            data[index]     = average;
+            data[index + 1] = average;
+            data[index + 2] = average;
+            index += 4;
+        }
+
+        context.putImageData(imageData, 0, 0);
+
+        return buffer;
+    });
+})(window.pieces || {});
+
+(function (namespace) {
+    namespace.filterFactory.register('tint', function (buffer, options) {
+        var context = buffer.getContext('2d'),
+            imageData = context.getImageData(0, 0, buffer.width, buffer.height),
+            data = imageData.data,
+            red = options.colors[0],
+            blue = options.colors[1],
+            green = options.colors[2],
+            opacity = options.strength,
+            iLen = data.length, i,
+            tintR, tintG, tintB,
+            r, g, b, alpha1;
+
+        tintR = red * opacity;
+        tintG = green * opacity;
+        tintB = blue * opacity;
+
+        alpha1 = 1 - opacity;
+
+        for (i = 0; i < iLen; i+=4) {
+            r = data[i];
+            g = data[i + 1];
+            b = data[i + 2];
+
+            // alpha compositing
+            data[i] = tintR + r * alpha1;
+            data[i + 1] = tintG + g * alpha1;
+            data[i + 2] = tintB + b * alpha1;
+        }
+
+        context.putImageData(imageData, 0, 0);
+
+        return buffer;
+    });
+})(window.pieces || {});
+
+
+(function (namespace) {
 
      function RenderEngine(options) {
         /**
@@ -562,87 +643,6 @@
     namespace.particleRenderFactory.register('canvas', RenderEngine);
 
 })(window.pieces || {});
-
-(function (namespace) {
-    namespace.filterFactory.register('colorize', function (buffer, options) {
-
-        var width = buffer.width;
-        var height = buffer.height;
-
-        var fill = options.colors.concat(options.strength || 1);
-
-        var render = this.getImageBuffer(width, height);
-        var ctx = render.getContext('2d');
-
-        ctx.fillStyle = 'rgba(' + fill.join(',') + ')';
-        ctx.fillRect(0, 0, width, height);
-        ctx.globalCompositeOperation = 'destination-atop';
-        ctx.drawImage(buffer, 0, 0);
-
-        return render;
-    });
-})(window.pieces || {});
-
-(function (namespace) {
-    namespace.filterFactory.register('desaturate', function (buffer, options) {
-
-        var context = buffer.getContext('2d'),
-            imageData = context.getImageData(0, 0, buffer.width, buffer.height),
-            data = imageData.data,
-            len = imageData.width * imageData.height * 4,
-            index = 0,
-            average;
-
-        while (index < len) {
-            average = (data[index] + data[index + 1] + data[index + 2]) / 3;
-            data[index]     = average;
-            data[index + 1] = average;
-            data[index + 2] = average;
-            index += 4;
-        }
-
-        context.putImageData(imageData, 0, 0);
-
-        return buffer;
-    });
-})(window.pieces || {});
-
-(function (namespace) {
-    namespace.filterFactory.register('tint', function (buffer, options) {
-        var context = buffer.getContext('2d'),
-            imageData = context.getImageData(0, 0, buffer.width, buffer.height),
-            data = imageData.data,
-            red = options.colors[0],
-            blue = options.colors[1],
-            green = options.colors[2],
-            opacity = options.strength,
-            iLen = data.length, i,
-            tintR, tintG, tintB,
-            r, g, b, alpha1;
-
-        tintR = red * opacity;
-        tintG = green * opacity;
-        tintB = blue * opacity;
-
-        alpha1 = 1 - opacity;
-
-        for (i = 0; i < iLen; i+=4) {
-            r = data[i];
-            g = data[i + 1];
-            b = data[i + 2];
-
-            // alpha compositing
-            data[i] = tintR + r * alpha1;
-            data[i + 1] = tintG + g * alpha1;
-            data[i + 2] = tintB + b * alpha1;
-        }
-
-        context.putImageData(imageData, 0, 0);
-
-        return buffer;
-    });
-})(window.pieces || {});
-
 
 (function (namespace) {
 
