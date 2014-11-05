@@ -34,7 +34,7 @@ An `EmitterElement` is used to bind an emitter to a HTML element, making the emi
 </script>
 ```
 
-From now on the emitter tracks the position of the HTML element `smokeMachine` and will follow it around your screen!
+From now on the emitter tracks the position of the HTML element `smokeMachine` and will follow it around on your screen!
 
 
 ## Emitter
