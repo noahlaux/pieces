@@ -1,0 +1,301 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pieces.js by noahlaux</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Pieces.js</h1>
+        <p>pieces.js is a small modular library (7KB) that spawn emitters and other goodness.</p>
+        <p class="view"><a href="https://github.com/noahlaux/pieces.js">View the Project on GitHub <small>noahlaux/pieces.js</small></a></p>
+        <ul>
+          <li><a href="https://github.com/noahlaux/pieces.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/noahlaux/pieces.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/noahlaux/pieces.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="piecesjs" class="anchor" href="#piecesjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>PIECES.JS</h1>
+
+<p>pieces.js is a small modular library (7KB) that spawn emitters and other goodness.</p>
+
+<hr>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>Check <code>example.html</code> in root folder for a demontration.</p>
+
+<hr>
+
+<h2>
+<a id="packaged-builds" class="anchor" href="#packaged-builds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packaged Builds</h2>
+
+<p>The easiest way to use <code>pieces.js</code> in your code is by using the built source at <code>dist/pieces.min.js</code>. These built JavaScript files bundle all the necessary dependencies to run pieces.js.</p>
+
+<p>In your <code>head</code> tag, include the following code:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"pieces.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<hr>
+
+<h2>
+<a id="emitterelement" class="anchor" href="#emitterelement" aria-hidden="true"><span class="octicon octicon-link"></span></a>EmitterElement</h2>
+
+<p>An <code>EmitterElement</code> is used to bind an emitter to a HTML element, making the emitter track the position of your HTML element and follow along. This is quite powerful and very easy to do:</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- Element to be tracked --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"smokeMachine"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+    <span class="c1">// Reference to element</span>
+    <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'smokeMachine'</span><span class="p">);</span>
+
+    <span class="c1">// create emitter element with default settings</span>
+    <span class="kd">var</span> <span class="nx">emitterElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">EmitterElement</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>From now on the emitter tracks the position of the HTML element <code>smokeMachine</code> and will follow it around on your screen!</p>
+
+<p>You can also provide additional options for your emitter by passing in some options</p>
+
+<div class="highlight highlight-html"><pre><span class="c">&lt;!-- Element to be tracked --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"smokeMachine"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+    <span class="c1">// Reference to element</span>
+    <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'smokeMachine'</span><span class="p">);</span>
+
+    <span class="c1">// create emitter element with options</span>
+    <span class="kd">var</span> <span class="nx">emitterElement</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">EmitterElement</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">endSize</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">velocityX</span><span class="o">:</span> <span class="mi">4</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h2>
+<a id="emitter" class="anchor" href="#emitter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Emitter</h2>
+
+<p>An emitters job is to spawn particles. This is useful to create illusions of fx smoke, fire, water, stars etc.</p>
+
+<p>Creating an emitter in pieces.js is easy</p>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">Emitter</span><span class="p">();</span>
+</pre></div>
+
+<p>This creates an emitter that imidiatly starts emitting smoke in the top left corner of your screen. The emitter has some sensible default settings and have an base64 smoke asset embedded.</p>
+
+<p>There's quite a few options to control the appearence of your emitter. Let's make a smoke hurricane for the fun of it:</p>
+
+<div class="highlight highlight-js"><pre><span class="c1">// smoke hurricane</span>
+<span class="kd">var</span> <span class="nx">smokeHurricane</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">Emitter</span><span class="p">({</span>
+    <span class="nx">rotationSpeed</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nx">spawnInterval</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="nx">growFactor</span><span class="o">:</span> <span class="mf">0.3</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>If you want to go completely crazy there's also filters (<code>desaturate</code>, <code>colorize</code>, <code>tint</code>) that you can color your particle asset. You use them like this:</p>
+
+<div class="highlight highlight-js"><pre><span class="c1">// Green dense smoke</span>
+<span class="kd">var</span> <span class="nx">smokeHurricane</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">pieces</span><span class="p">.</span><span class="nx">Emitter</span><span class="p">({</span>
+    <span class="nx">growFactor</span><span class="o">:</span> <span class="mi">5</span>
+    <span class="nx">filters</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">colorize</span><span class="o">:</span> <span class="p">{</span>
+            <span class="c1">// RGB colors</span>
+            <span class="nx">colors</span><span class="o">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="c1">// opacity of filter</span>
+            <span class="nx">strength</span><span class="o">:</span> <span class="mi">1</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>
+<a id="emitter-options" class="anchor" href="#emitter-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Emitter options</h3>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Time between emitter spawns</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">spawnInterval</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Indicates if emitter should spawn particles</span>
+<span class="cm">     * @type {Boolean}</span>
+<span class="cm">     */</span>
+    <span class="nx">paused</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Max life time for particle to live (in ms)</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">maxLifeTime</span><span class="o">:</span> <span class="mi">5000</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Current size of particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">size</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Initial and current life time of particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">lifeTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Start size of particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">startSize</span><span class="o">:</span> <span class="mi">30</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * End size of particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">endSize</span><span class="o">:</span> <span class="mi">70</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Grow factor for particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">growFactor</span><span class="o">:</span> <span class="mf">0.1</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Current horizontal position for particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">positionX</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Current vertical position for particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">positionY</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Current horizontal particle velocity</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">velocityX</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Adds randomness to horizontal particle velocity</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">velocityXRandomFactor</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Current vertical velocity</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">velocityY</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Adds randomness to vertical particle velocity</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">velocityYRandomFactor</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Rotation span for particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">rotationAngleSpan</span><span class="o">:</span> <span class="mi">180</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Rotation speed of particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">rotationSpeed</span><span class="o">:</span> <span class="mf">0.2</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Start opacity of the particle</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">startOpacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Decline speed for opacity</span>
+<span class="cm">     * @type {Number}</span>
+<span class="cm">     */</span>
+    <span class="nx">opacityDeclineSpeed</span><span class="o">:</span> <span class="mf">0.01</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Filters to apply to asset</span>
+<span class="cm">     * @type {Object}</span>
+<span class="cm">     */</span>
+    <span class="nx">filters</span><span class="o">:</span> <span class="p">{},</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Image to use for asset</span>
+<span class="cm">     * @type {String}</span>
+<span class="cm">     */</span>
+    <span class="nx">image</span><span class="o">:</span> <span class="s1">''</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Render used for particles</span>
+<span class="cm">     * @type {String}</span>
+<span class="cm">     */</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="s1">'canvas'</span><span class="p">,</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Particle prototype</span>
+<span class="cm">     * @type {String}</span>
+<span class="cm">     */</span>
+    <span class="nx">particleName</span><span class="o">:</span> <span class="s1">'standard'</span>
+<span class="p">};</span>
+</pre></div>
+
+<h1>
+<a id="building-piecesjs-from-sources" class="anchor" href="#building-piecesjs-from-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building pieces.js from sources</h1>
+
+<p>If you prefer to build the library yourself:</p>
+
+<p>Clone the repo from GitHub</p>
+
+<pre><code>git clone git@github.com:noahlaux/pieces.js.git
+cd pieces
+</code></pre>
+
+<p>Acquire build dependencies. Make sure you have Node.js installed on your workstation. This is only needed to build pieces.js from sources. pieces.js itself has no dependency on Node.js once it is built (it works with any server technology or none). Now run:</p>
+
+<pre><code>npm install -g gulp
+npm install
+</code></pre>
+
+<p>The first npm command sets up the popular gylp build tool. You might need to run this command with sudo if you're on Linux or Mac OS X, or in an Administrator command prompt on Windows. The second npm command fetches the remaining build dependencies.</p>
+
+<p>Run the build tool</p>
+
+<p><code>gylp</code></p>
+
+<p>Now you'll find the built files <code>pieces.js</code> &amp; <code>pieces.min.js</code> in the <code>dist</code> folder.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/noahlaux">noahlaux</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
