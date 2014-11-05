@@ -235,7 +235,7 @@ Clone the repo from GitHub
 
 ```
 git clone git@github.com:noahlaux/pieces.js.git
-cd pieces
+cd pieces.js
 ```
 
 Acquire build dependencies. Make sure you have Node.js installed on your workstation. This is only needed to build pieces.js from sources. pieces.js itself has no dependency on Node.js once it is built (it works with any server technology or none). Now run:
