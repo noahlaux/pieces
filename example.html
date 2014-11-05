@@ -5,34 +5,142 @@
     <title>Emitter example</title>
     <style>
         body {
-            background-color: #222;
+            background: url(http://p1.pichost.me/i/58/1821109.jpg) no-repeat center center fixed;
         }
 
         .smoke-machine {
             position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #111;
+            border: 1px solid #444;
+            pointer: move;
         }
 
-        #smoke-machine-1 {
-            bottom: 0;
-            left: 50%;
-            width: 50px;
-            height: 20px;
-            background-color: #000;
-            z-index: 1;
-        }
     </style>
+
 </head>
 <body>
-    <div id="smoke-machine-1" class="smoke-machine"></div>
-    <script src="emitter-container.js"></script>
+    <script type="text/javascript" src="bower_components/dat-gui/build/dat.gui.min.js"></script>
+    <script src="http://draggabilly.desandro.com/draggabilly.pkgd.min.js"></script>
+    <script src="src/pieces.js"></script>
+    <script src="src/utils.js"></script>
+    <script src="src/particles/standard.js"></script>
+    <script src="src/particleRenderEngines/canvas.js"></script>
+    <script src="src/filters/tint.js"></script>
+    <script src="src/filters/colorize.js"></script>
+    <script src="src/emitter.js"></script>
     <script>
-        var element = document.querySelector('#smoke-machine-1');
-        var emitter = new Emitter(element);
 
-        // var emitter2 = new Emitter({
-        //     positionX: 0,
-        //     positionY: 400
-        // });
+        var emitters = [];
+
+        for (var x = 1; x < 6; x++) {
+
+            var element = createElement();
+
+            element.style.zIndex = x;
+            element.style.left = (x * 220) + 'px';
+            element.style.top = document.body.scrollHeight / 2 + 'px';
+            colors = [getRandom(0, 255), getRandom(0, 255), getRandom(0, 255)];
+
+            element.style.backgroundColor = 'rgb(' + colors.join(',') + ')';
+
+            var emitter = new pieces.Emitter(element, {
+                spawnInterval: 50,
+                maxLifeTime: 3000,
+                filters: {
+                    colorize: {
+                        colors: colors,
+                        strength: 0.5
+                    }
+                },
+                velocityX: getRandom(5, 2),
+                velocityY: x % 2 ? -2 : 2
+            });
+
+            new Draggabilly( element );
+
+            emitters.push(emitter);
+        }
+
+        var element = createElement();
+
+        element.style.left = '0px';
+        element.style.zIndex = 11;
+
+        var topEmitter = new pieces.Emitter(element, {
+            // zIndex: 10,
+            spawnInterval: 30,
+            maxLifeTime: 4000,
+            growFactor: 0.3,
+            endSize: 50,
+            velocityX: 10,
+            velocityY: 3
+        });
+
+        emitters.push(topEmitter);
+
+        var boxWidth = element.style.width,
+            viewWidth = document.body.scrollWidth - boxWidth,
+            moveBy = 3,
+            delta = 2;
+
+        element.style.top = '10px';
+
+        update();
+
+        function update() {
+            var left = parseInt(element.style.left);
+
+            if (left >= parseInt(viewWidth - boxWidth)){
+                delta = -moveBy;
+            }
+
+            if (left <= 0) {
+                delta = moveBy;
+            }
+            element.style.left = left + delta + 'px';
+            requestAnimationFrame(update);
+        }
+
+
+        function createElement() {
+            var element = document.createElement('div');
+            element.classList.add('smoke-machine');
+            document.body.appendChild(element);
+            return element;
+        }
+
+        function getRandom(from, to) {
+            return Math.round(Math.random() * to + from);
+        }
+
+        settings(topEmitter);
+
+        function settings (emitter) {
+
+            var settingsScope = emitter.settings;
+
+            var gui = new dat.GUI();
+
+            var f1 = gui.addFolder('Emitter');
+            f1.add(settingsScope, 'spawnInterval');
+            f1.add(settingsScope, 'paused');
+
+            var f2 = gui.addFolder('Particle');
+            f2.add(settingsScope, 'maxLifeTime', 0, 10000);
+            f2.add(settingsScope, 'startSize', -10, 100);
+            f2.add(settingsScope, 'endSize', -10, 100);
+            f2.add(settingsScope, 'growFactor', 0, 1);
+            f2.add(settingsScope, 'rotationSpeed', 0, 10);
+            f2.add(settingsScope, 'velocityX', -10, 10);
+            f2.add(settingsScope, 'velocityXRandomFactor', 0, 10);
+            f2.add(settingsScope, 'velocityY', -10, 10);
+            f2.add(settingsScope, 'velocityYRandomFactor', 0, 10);
+
+            f2.open();
+        }
+
     </script>
 </body>
 </html>
