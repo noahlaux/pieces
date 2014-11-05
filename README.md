@@ -36,6 +36,23 @@ An `EmitterElement` is used to bind an emitter to a HTML element, making the emi
 
 From now on the emitter tracks the position of the HTML element `smokeMachine` and will follow it around on your screen!
 
+You can also provide additional options for your emitter by passing in some options
+```html
+<!-- Element to be tracked -->
+<div id="smokeMachine"></div>
+
+<script>
+    // Reference to element
+    var element = document.getElementById('smokeMachine');
+
+    // create emitter element with default settings
+    var emitterElement = new pieces.EmitterElement(element, {
+        endSize: 100,
+        velocityX: 4
+    });
+</script>
+```
+
 
 ## Emitter
 An emitters job is to spawn particles. This is useful to create illusions of fx smoke, fire, water, stars etc.
@@ -46,21 +63,19 @@ var emitter = new pieces.Emitter();
 ```
 This creates an emitter that imidiatly starts emitting smoke in the top left corner of your screen. The emitter has some sensible default settings and have an base64 smoke asset embedded.
 
+There's quite a few options to control the appearence of your emitter. Let's make a smoke hurricane for the fun of it:
+```js
+// smoke hurricane
+var smokeHurricane = new pieces.Emitter({
+    rotationSpeed: 5,
+    spawnInterval: 20,
+    growFactor: 0.3
+});
+```
+
 ### Emitter options
 ```js
 var defaults = {
-    /**
-     * Render used for particles
-     * @type {String}
-     */
-    render: 'canvas',
-
-    /**
-     * Particle prototype
-     * @type {String}
-     */
-    particleName: 'standard',
-
     /**
      * Time between emitter spawns
      * @type {Number}
@@ -179,13 +194,19 @@ var defaults = {
      * Image to use for asset
      * @type {String}
      */
-    image: ''
+    image: '',
 
     /**
-     * Image to use for asset
+     * Render used for particles
      * @type {String}
      */
-    image: ''
+    render: 'canvas',
+
+    /**
+     * Particle prototype
+     * @type {String}
+     */
+    particleName: 'standard'
 };
 ```
 
