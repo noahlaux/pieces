@@ -1,9 +1,13 @@
 # PIECES.JS
 pieces.js is a small modular library (7KB) that spawn emitters and other goodness.
 
+Go to [website](http://noahlaux.github.io/pieces/)
+
 ---
 
 ## Example
+
+[Example 1](http://noahlaux.github.io/pieces/example-1.html)
 
 Check `example.html` in root folder for a demontration.
 
