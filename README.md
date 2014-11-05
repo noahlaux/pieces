@@ -21,7 +21,7 @@ In your `head` tag, include the following code:
 
 An `EmitterElement` is used to bind an emitter to a HTML element, making the emitter track the position of your HTML element and follow along. This is quite powerful and very easy to do:
 
-```
+```html
 <!-- Element to be tracked -->
 <div id="smokeMachine"></div>
 
