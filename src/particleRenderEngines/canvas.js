@@ -19,17 +19,17 @@
     RenderEngine.prototype = {
 
         /**
-         * [onTick description]
-         * @return {[type]} [description]
+         * React on emitters tick
+         * @return N/A
          */
         onTick: function () {
             this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
         },
 
         /**
-         * [render description]
-         * @param  {[type]} particle [description]
-         * @return {[type]}          [description]
+         * Render particle
+         * @param  {Object} particle
+         * @return N/A
          */
         render: function (particle) {
             this.buffer.save();
@@ -51,6 +51,11 @@
             this.buffer.restore();
         },
 
+        /**
+         * Return canvas for viewport rendering
+         * @param  {Object} config
+         * @return {HTML element}
+         */
         getCanvas: function (config) {
             var canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
@@ -65,6 +70,10 @@
             return canvas;
         },
 
+        /**
+         * Fires on window resize
+         * @return N/A
+         */
         onResize: function () {
             this.canvas.width = document.body.scrollWidth;
             this.canvas.height = document.body.scrollHeight;

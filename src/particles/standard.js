@@ -2,7 +2,6 @@
 
     function Particle(config) {
 
-
         namespace.utils.deepExtend(this, config);
 
         this.startLife = new Date().getTime();

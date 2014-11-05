@@ -265,13 +265,8 @@
         };
     };
 
-    function Emitter(element, config) {
+    function Emitter(config) {
 
-        /**
-         * Reference to element
-         * @type {HTML element}
-         */
-        this.element = element;
 
         /**
          * Settings
@@ -311,9 +306,6 @@
 
         //this.settings.maxLifeTime = Math.min(this.settings.maxLifeTime, (this.canvas.height / (1.5 * 60) * 1000));
 
-        // Set initial position
-        this.setPosition(this.getPosition(element));
-
         namespace.utils.loadAsset(this.settings.image, function (asset) {
             if (!namespace.utils.isEmpty(this.settings.filters)) {
                 asset = namespace.filterFactory.applyFilters(asset, this.settings.filters);
@@ -322,10 +314,6 @@
             this.tick(this.settings);
         }.bind(this));
 
-        // When element position changes, change position on emitter
-        this.observeElement(this.element, function () {
-            this.setPosition(this.getPosition(element));
-        }.bind(this));
     }
 
     Emitter.prototype = {
@@ -403,49 +391,6 @@
          */
         stop: function () {
             this.settings.paused = true;
-        },
-
-        /**
-         * Observes element on changes
-         * @param  {HTML element}   element
-         * @param  {Function} callback
-         * @return N/A
-         */
-        observeElement: function (element, callback) {
-            var observer = new MutationObserver(callback);
-            observer.observe(element, { attributes: true, characterData: true });
-        },
-
-        /**
-         * Get position of attached element
-         * @param  {HTML element} element
-         * @return {Object} { top: Number, left: Number }
-         */
-        getPosition: function (element) {
-
-            var transform = element.style.getPropertyCSSValue('transform'),
-                transformY = 0,
-                transformX = 0;
-
-            if (transform) {
-                var compensation = transform[0];
-                transformX = parseInt(compensation[0].cssText, 10);
-                transformY = parseInt(compensation[1].cssText, 10);
-            }
-
-            return {
-                top: element.offsetTop + transformY,
-                left: element.offsetLeft + transformX
-            };
-        },
-
-        /**
-         * Sets position of emitter
-         * @param {Object} position @example { top: 0, left: 0 }
-         */
-        setPosition: function (position) {
-            this.settings.positionX = position.left;
-            this.settings.positionY = position.top;
         }
     };
 
@@ -551,17 +496,17 @@
     RenderEngine.prototype = {
 
         /**
-         * [onTick description]
-         * @return {[type]} [description]
+         * React on emitters tick
+         * @return N/A
          */
         onTick: function () {
             this.buffer.clearRect(0, 0, this.canvas.width, this.canvas.height);
         },
 
         /**
-         * [render description]
-         * @param  {[type]} particle [description]
-         * @return {[type]}          [description]
+         * Render particle
+         * @param  {Object} particle
+         * @return N/A
          */
         render: function (particle) {
             this.buffer.save();
@@ -583,6 +528,11 @@
             this.buffer.restore();
         },
 
+        /**
+         * Return canvas for viewport rendering
+         * @param  {Object} config
+         * @return {HTML element}
+         */
         getCanvas: function (config) {
             var canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
@@ -597,6 +547,10 @@
             return canvas;
         },
 
+        /**
+         * Fires on window resize
+         * @return N/A
+         */
         onResize: function () {
             this.canvas.width = document.body.scrollWidth;
             this.canvas.height = document.body.scrollHeight;
@@ -610,7 +564,6 @@
 (function (namespace) {
 
     function Particle(config) {
-
 
         namespace.utils.deepExtend(this, config);
 
@@ -654,5 +607,79 @@
     };
 
     namespace.particleFactory.register('standard', Particle);
+
+})(window.pieces || {});
+
+(function (namespace) {
+
+    function EmitterElement (element, options) {
+
+        /**
+         * Reference to element
+         * @type {HTML element}
+         */
+        this.element = element;
+
+        /**
+         * Emitter bound to element
+         * @type {Emitter}
+         */
+        this.emitter = new namespace.Emitter(options);
+
+        // Set initial position
+        this.setPosition(this.getPosition(this.element));
+
+         // When element position changes, change position on emitter
+        this.observeElement(this.element, function () {
+            this.setPosition(this.getPosition(this.element));
+        }.bind(this));
+    }
+
+    EmitterElement.prototype = {
+        /**
+         * Observes element on changes
+         * @param  {HTML element}   element
+         * @param  {Function} callback
+         * @return N/A
+         */
+        observeElement: function (element, callback) {
+            var observer = new MutationObserver(callback);
+            observer.observe(element, { attributes: true, characterData: true });
+        },
+
+        /**
+         * Get position of attached element
+         * @param  {HTML element} element
+         * @return {Object} { top: Number, left: Number }
+         */
+        getPosition: function (element) {
+
+            var transform = element.style.getPropertyCSSValue('transform'),
+                transformY = 0,
+                transformX = 0;
+
+            if (transform) {
+                var compensation = transform[0];
+                transformX = parseInt(compensation[0].cssText, 10);
+                transformY = parseInt(compensation[1].cssText, 10);
+            }
+
+            return {
+                top: element.offsetTop + transformY,
+                left: element.offsetLeft + transformX
+            };
+        },
+
+        /**
+         * Sets position of emitter
+         * @param {Object} position @example { top: 0, left: 0 }
+         */
+        setPosition: function (position) {
+            this.emitter.settings.positionX = position.left;
+            this.emitter.settings.positionY = position.top;
+        }
+    };
+
+    namespace.EmitterElement = EmitterElement;
 
 })(window.pieces || {});

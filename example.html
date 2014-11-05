@@ -23,7 +23,7 @@
 <body>
     <script type="text/javascript" src="bower_components/dat-gui/build/dat.gui.min.js"></script>
     <script src="http://draggabilly.desandro.com/draggabilly.pkgd.min.js"></script>
-    <script src="dist/pieces.min.js"></script>
+    <script src="dist/pieces.js"></script>
     <script>
 
         var emitters = [];
@@ -39,7 +39,7 @@
 
             element.style.backgroundColor = 'rgb(' + colors.join(',') + ')';
 
-            var emitter = new pieces.Emitter(element, {
+            var emitter = new pieces.EmitterElement(element, {
                 spawnInterval: 50,
                 maxLifeTime: 3000,
                 filters: {
@@ -62,7 +62,7 @@
         element.style.left = '0px';
         element.style.zIndex = 11;
 
-        var topEmitter = new pieces.Emitter(element, {
+        var topEmitter = new pieces.EmitterElement(element, {
             // zIndex: 10,
             spawnInterval: 30,
             maxLifeTime: 4000,
@@ -109,7 +109,7 @@
             return Math.round(Math.random() * to + from);
         }
 
-        settings(topEmitter);
+        settings(topEmitter.emitter);
 
         function settings (emitter) {
 

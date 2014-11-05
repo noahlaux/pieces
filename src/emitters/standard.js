@@ -63,13 +63,8 @@
         };
     };
 
-    function Emitter(element, config) {
+    function Emitter(config) {
 
-        /**
-         * Reference to element
-         * @type {HTML element}
-         */
-        this.element = element;
 
         /**
          * Settings
@@ -109,9 +104,6 @@
 
         //this.settings.maxLifeTime = Math.min(this.settings.maxLifeTime, (this.canvas.height / (1.5 * 60) * 1000));
 
-        // Set initial position
-        this.setPosition(this.getPosition(element));
-
         namespace.utils.loadAsset(this.settings.image, function (asset) {
             if (!namespace.utils.isEmpty(this.settings.filters)) {
                 asset = namespace.filterFactory.applyFilters(asset, this.settings.filters);
@@ -120,10 +112,6 @@
             this.tick(this.settings);
         }.bind(this));
 
-        // When element position changes, change position on emitter
-        this.observeElement(this.element, function () {
-            this.setPosition(this.getPosition(element));
-        }.bind(this));
     }
 
     Emitter.prototype = {
@@ -201,49 +189,6 @@
          */
         stop: function () {
             this.settings.paused = true;
-        },
-
-        /**
-         * Observes element on changes
-         * @param  {HTML element}   element
-         * @param  {Function} callback
-         * @return N/A
-         */
-        observeElement: function (element, callback) {
-            var observer = new MutationObserver(callback);
-            observer.observe(element, { attributes: true, characterData: true });
-        },
-
-        /**
-         * Get position of attached element
-         * @param  {HTML element} element
-         * @return {Object} { top: Number, left: Number }
-         */
-        getPosition: function (element) {
-
-            var transform = element.style.getPropertyCSSValue('transform'),
-                transformY = 0,
-                transformX = 0;
-
-            if (transform) {
-                var compensation = transform[0];
-                transformX = parseInt(compensation[0].cssText, 10);
-                transformY = parseInt(compensation[1].cssText, 10);
-            }
-
-            return {
-                top: element.offsetTop + transformY,
-                left: element.offsetLeft + transformX
-            };
-        },
-
-        /**
-         * Sets position of emitter
-         * @param {Object} position @example { top: 0, left: 0 }
-         */
-        setPosition: function (position) {
-            this.settings.positionX = position.left;
-            this.settings.positionY = position.top;
         }
     };
 

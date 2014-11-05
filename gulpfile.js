@@ -14,7 +14,6 @@ gulp.task('clean', function () {
             .pipe(clean());
 });
 
-
 gulp.task('concat', function() {
   return gulp.src(config.srcFiles)
             .pipe(concat('pieces.js'))
@@ -28,6 +27,11 @@ gulp.task('minify', function() {
             .pipe(gulp.dest(config.dist));
 });
 
-gulp.task('build', ['clean', 'concat', 'minify']);
+
+gulp.task('build', ['concat', 'minify']);
+
+gulp.task('watch', function () {
+    gulp.watch('src/**/*.js', ['build']);
+});
 
 gulp.task('default', ['build']);
