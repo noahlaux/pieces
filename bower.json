@@ -1,7 +1,7 @@
 {
-  "name": "pieces.js",
-  "version": "0.0.1",
-  "homepage": "https://github.com/noahlaux/emitter-container",
+  "name": "pieces",
+  "version": "0.0.2",
+  "homepage": "https://github.com/noahlaux/pieces",
   "authors": [
     "Noah Laux <noahlaux@gmail.com>"
   ],
@@ -19,8 +19,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "dat-gui": "https://github.com/dataarts/dat.gui.git#~0.5.0"
-  }
+  ]
 }
