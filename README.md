@@ -7,6 +7,8 @@ pieces.js is a small modular library (7KB) that spawn emitters and other goodnes
 
 Check `example.html` in root folder for a demontration.
 
+---
+
 ## Packaged Builds
 The easiest way to use `pieces.js` in your code is by using the built source at `dist/pieces.min.js`. These built JavaScript files bundle all the necessary dependencies to run pieces.js.
 

@@ -1,30 +1,34 @@
 (function (namespace) {
     namespace.filterFactory.register('tint', function (buffer, options) {
+        var context = buffer.getContext('2d'),
+            imageData = context.getImageData(0, 0, buffer.width, buffer.height),
+            data = imageData.data,
+            red = options.colors[0],
+            blue = options.colors[1],
+            green = options.colors[2],
+            opacity = options.strength,
+            iLen = data.length, i,
+            tintR, tintG, tintB,
+            r, g, b, alpha1;
 
-        var ctx  = buffer.getContext("2d");
-        var rgbks = this.generateRGBKs(buffer);
+        tintR = red * opacity;
+        tintG = green * opacity;
+        tintB = blue * opacity;
 
-        var red = options.colors[0] || 0;
-        var green = options.colors[1] || 0;
-        var blue = options.colors[2] || 0;
+        alpha1 = 1 - opacity;
 
-        ctx.globalAlpha = 1;
-        ctx.globalCompositeOperation = 'copy';
-        ctx.drawImage( rgbks[3], 0, 0 );
+        for (i = 0; i < iLen; i+=4) {
+            r = data[i];
+            g = data[i + 1];
+            b = data[i + 2];
 
-        ctx.globalCompositeOperation = 'lighter';
-        if ( red > 0 ) {
-            ctx.globalAlpha = red   / 255.0;
-            ctx.drawImage( rgbks[0], 0, 0 );
+            // alpha compositing
+            data[i] = tintR + r * alpha1;
+            data[i + 1] = tintG + g * alpha1;
+            data[i + 2] = tintB + b * alpha1;
         }
-        if ( green > 0 ) {
-            ctx.globalAlpha = green / 255.0;
-            ctx.drawImage( rgbks[1], 0, 0 );
-        }
-        if ( blue > 0 ) {
-            ctx.globalAlpha = blue   / 255.0;
-            ctx.drawImage( rgbks[2], 0, 0 );
-        }
+
+        context.putImageData(imageData, 0, 0);
 
         return buffer;
     });
