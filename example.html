@@ -21,7 +21,7 @@
 
 </head>
 <body>
-    <script type="text/javascript" src="bower_components/dat-gui/build/dat.gui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
     <script src="http://draggabilly.desandro.com/draggabilly.pkgd.min.js"></script>
     <script src="dist/pieces.min.js"></script>
     <script>
@@ -39,7 +39,7 @@
 
             element.style.backgroundColor = 'rgb(' + colors.join(',') + ')';
 
-            var emitter = new pieces.EmitterElement(element, {
+            var emitterElement = new pieces.EmitterElement(element, {
                 spawnInterval: 50,
                 maxLifeTime: 3000,
                 filters: {
@@ -54,7 +54,11 @@
 
             new Draggabilly( element );
 
-            emitters.push(emitter);
+            element.addEventListener('click', function () {
+                setupEmitter(emitterElement.emitter);
+            });
+
+            emitters.push(emitterElement);
         }
 
         var element = createElement();
@@ -80,6 +84,8 @@
             delta = 2;
 
         element.style.top = '10px';
+
+        setupEmitter(topEmitter.emitter);
 
         update();
 
@@ -109,11 +115,8 @@
             return Math.round(Math.random() * to + from);
         }
 
-        settings(topEmitter.emitter);
-
-        function settings (emitter) {
-
-            var settingsScope = emitter.settings;
+        function setupEmitter (emitter) {
+            settingsScope = emitter.settings;
 
             var gui = new dat.GUI();
 
