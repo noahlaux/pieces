@@ -259,6 +259,6 @@ The first npm command sets up the popular gylp build tool. You might need to run
 
 Run the build tool
 
-`gylp`
+`gulp`
 
 Now you'll find the built files `pieces.js` & `pieces.min.js` in the `dist` folder.
