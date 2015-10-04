@@ -440,6 +440,9 @@
 
             this.spawn(config);
             requestAnimationFrame(function () {
+                if (this.isDestroyed) {
+                    return;
+                }
                 this.tick(config);
             }.bind(this));
         },
@@ -470,6 +473,15 @@
          */
         stop: function () {
             this.settings.paused = true;
+        },
+
+        /**
+         * Clean up emitter
+         * @return N/A
+         */
+        destroy: function () {
+            this.isDestroyed = true;
+            this.renderEngine.destroy();
         }
     };
 
@@ -619,8 +631,10 @@
         getCanvas: function (config) {
             var canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
-            canvas.style.position = 'absolute';
             canvas.style.zIndex = config.zIndex || 0;
+            // Disable click through
+            canvas.style.pointerEvents = 'none';
+            canvas.style.position = 'absolute';
             canvas.style.top = 0;
             canvas.style.left = 0;
             canvas.style.right = 0;
@@ -637,6 +651,15 @@
         onResize: function () {
             this.canvas.width = document.body.scrollWidth;
             this.canvas.height = document.body.scrollHeight;
+        },
+
+        /**
+         * Clean up
+         * @return N/A
+         */
+        destroy: function () {
+            this.buffer = undefined;
+            this.canvas.remove();
         }
     };
 
@@ -737,19 +760,13 @@
          */
         getPosition: function (element) {
 
-            var transform = element.style.getPropertyCSSValue('transform'),
-                transformY = 0,
-                transformX = 0;
-
-            if (transform) {
-                var compensation = transform[0];
-                transformX = parseInt(compensation[0].cssText, 10);
-                transformY = parseInt(compensation[1].cssText, 10);
-            }
+            var bodyRect = document.body.getBoundingClientRect();
+            var elemRect = element.getBoundingClientRect();
+            var offset = elemRect.top - bodyRect.top;
 
             return {
-                top: element.offsetTop + transformY,
-                left: element.offsetLeft + transformX
+                top: elemRect.top - bodyRect.top,
+                left: elemRect.left - bodyRect.left
             };
         },
 

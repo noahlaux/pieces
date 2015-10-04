@@ -238,6 +238,9 @@
 
             this.spawn(config);
             requestAnimationFrame(function () {
+                if (this.isDestroyed) {
+                    return;
+                }
                 this.tick(config);
             }.bind(this));
         },
@@ -268,6 +271,15 @@
          */
         stop: function () {
             this.settings.paused = true;
+        },
+
+        /**
+         * Clean up emitter
+         * @return N/A
+         */
+        destroy: function () {
+            this.isDestroyed = true;
+            this.renderEngine.destroy();
         }
     };
 

@@ -1,6 +1,6 @@
 {
   "name": "pieces",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "homepage": "https://github.com/noahlaux/pieces",
   "authors": [
     "Noah Laux <noahlaux@gmail.com>"
@@ -20,14 +20,13 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.2",
+  "_release": "0.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.2",
-    "commit": "8d4bbc05208d2284032d3b850851b5da727de462"
+    "tag": "v0.0.4",
+    "commit": "7974195d949a904645133357d1efb9f38ac80206"
   },
   "_source": "git://github.com/noahlaux/pieces.git",
   "_target": "~0.0.2",
-  "_originalSource": "pieces",
-  "_direct": true
+  "_originalSource": "pieces"
 }

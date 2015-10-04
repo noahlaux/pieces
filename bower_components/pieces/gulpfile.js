@@ -9,28 +9,18 @@ var config = {
     srcFiles: './src/**/*.js'
 };
 
-gulp.task('clean', function () {
-    return gulp.src(config.dist, {read: false})
-            .pipe(clean());
-});
-
 gulp.task('concat', function() {
     gulp.src(config.srcFiles)
             .pipe(concat('pieces.js'))
-            .pipe(gulp.dest(config.dist));
-});
-
-gulp.task('minify', function() {
-    gulp.src(config.dist + '*.js')
+            .pipe(gulp.dest(config.dist))
             .pipe(rename('pieces.min.js'))
             .pipe(uglify())
             .pipe(gulp.dest(config.dist));
 });
 
-gulp.task('build', ['concat', 'minify']);
-
 gulp.task('watch', function () {
     gulp.watch('src/**/*.js', ['build']);
 });
 
+gulp.task('build', ['concat']);
 gulp.task('default', ['build']);

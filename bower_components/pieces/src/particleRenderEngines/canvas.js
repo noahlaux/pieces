@@ -59,8 +59,10 @@
         getCanvas: function (config) {
             var canvas = document.createElement('canvas');
             document.body.appendChild(canvas);
-            canvas.style.position = 'absolute';
             canvas.style.zIndex = config.zIndex || 0;
+            // Disable click through
+            canvas.style.pointerEvents = 'none';
+            canvas.style.position = 'absolute';
             canvas.style.top = 0;
             canvas.style.left = 0;
             canvas.style.right = 0;
@@ -77,6 +79,15 @@
         onResize: function () {
             this.canvas.width = document.body.scrollWidth;
             this.canvas.height = document.body.scrollHeight;
+        },
+
+        /**
+         * Clean up
+         * @return N/A
+         */
+        destroy: function () {
+            this.buffer = undefined;
+            this.canvas.remove();
         }
     };
 

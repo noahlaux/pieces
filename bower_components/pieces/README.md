@@ -1,13 +1,20 @@
 # PIECES.JS
 pieces.js is a small modular library (7KB) that spawn emitters and other goodness.
 
+Go to [website](http://noahlaux.github.io/pieces/)
+
 ---
 
 ## Example
 
+[Example 1](http://noahlaux.github.io/pieces/example-1.html)
+
 Check `example.html` in root folder for a demontration.
 
 ---
+
+## Installing with BOWER
+`bower install pieces --save`
 
 ## Packaged Builds
 The easiest way to use `pieces.js` in your code is by using the built source at `dist/pieces.min.js`. These built JavaScript files bundle all the necessary dependencies to run pieces.js.
@@ -54,6 +61,7 @@ You can also provide additional options for your emitter by passing in some opti
     });
 </script>
 ```
+---
 
 ## Emitter
 An emitters job is to spawn particles. This is useful to create illusions of fx smoke, fire, water, stars etc.
@@ -89,6 +97,7 @@ var smokeHurricane = new pieces.Emitter({
     }
 });
 ```
+---
 
 ### Emitter options
 ```js
@@ -227,6 +236,8 @@ var defaults = {
 };
 ```
 
+---
+
 # Building pieces.js from sources
 
 If you prefer to build the library yourself:
@@ -235,7 +246,7 @@ Clone the repo from GitHub
 
 ```
 git clone git@github.com:noahlaux/pieces.js.git
-cd pieces
+cd pieces.js
 ```
 
 Acquire build dependencies. Make sure you have Node.js installed on your workstation. This is only needed to build pieces.js from sources. pieces.js itself has no dependency on Node.js once it is built (it works with any server technology or none). Now run:
@@ -248,6 +259,6 @@ The first npm command sets up the popular gylp build tool. You might need to run
 
 Run the build tool
 
-`gylp`
+`gulp`
 
 Now you'll find the built files `pieces.js` & `pieces.min.js` in the `dist` folder.
