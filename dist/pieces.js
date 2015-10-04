@@ -760,19 +760,13 @@
          */
         getPosition: function (element) {
 
-            var transform = element.style.getPropertyCSSValue('transform'),
-                transformY = 0,
-                transformX = 0;
-
-            if (transform) {
-                var compensation = transform[0];
-                transformX = parseInt(compensation[0].cssText, 10);
-                transformY = parseInt(compensation[1].cssText, 10);
-            }
+            var bodyRect = document.body.getBoundingClientRect();
+            var elemRect = element.getBoundingClientRect();
+            var offset = elemRect.top - bodyRect.top;
 
             return {
-                top: element.offsetTop + transformY,
-                left: element.offsetLeft + transformX
+                top: elemRect.top - bodyRect.top,
+                left: elemRect.left - bodyRect.left
             };
         },
 
